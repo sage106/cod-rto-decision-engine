@@ -286,8 +286,20 @@ function OrderSimulator() {
 
           {/* Plain English reason — the most prominent element */}
           <div className="result-reason">
-            {result.reason}
+            <strong>Operations Reason:</strong> {result.reason}
           </div>
+
+          {/* Address Evaluation Detail */}
+          {result.address_evaluation && (
+            <div style={{ marginTop: 12, padding: '10px 14px', background: 'var(--color-bg-secondary, #f8fafc)', borderRadius: 6, border: '1px solid var(--color-border, #e2e8f0)', fontSize: '0.9rem' }}>
+              <div style={{ fontWeight: 600, color: 'var(--color-text, #1e293b)', marginBottom: 4 }}>
+                Address Assessment ({result.address_evaluation.method === 'llm' ? 'LLM Semantic Analysis' : 'Deterministic Fast-Path'})
+              </div>
+              <div style={{ color: 'var(--color-text-muted, #64748b)' }}>
+                Status: <strong>{result.address_evaluation.completeness}</strong> {result.address_evaluation.has_landmark ? '(Hinglish landmark detected)' : ''} &bull; {result.address_evaluation.detail}
+              </div>
+            </div>
+          )}
 
           {/* Financial impact breakdown */}
           {result.financial_impact && (
